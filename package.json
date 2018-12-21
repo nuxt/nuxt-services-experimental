@@ -1,0 +1,19 @@
+{
+  "name": "",
+  "description": "",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "mongodb": "^3.1.10",
+    "nuxt-start-edge": "^2.4.0-25753460.5b58272d",
+    "ws": "^6.1.2"
+  },
+  "devDependencies": {
+    "nuxt-edge": "^2.4.0-25753460.5b58272d"
+  }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app"><button @click="test">Test</button></div>
+    <script>
+        class ClientRPC {
+            constructor(remote) {
+                this.ws = new WebSocket(`ws://${remote}/`);
+                this.challenge = 0;
+                this.returns = new Map();
+                this.connected = false;
+
+                this.ws.onmessage = (data) => {
+
+                    try {
+                        var obj = JSON.parse(data.data);
+                    } catch(e) {
+                        console.log("Err", e, data.data);
+                        return;
+                    }
+
+                    switch (obj.action ) {
+                        case "return":
+
+                            if (obj.challenge && obj.action) {
+                                const resolve = this.returns.get(obj.challenge);
+
+                                resolve(obj.data);
+                                this.returns.delete(obj.challenge)
+                            }
+                            break;
+                        default:
+                    }
+
+                }
+
+                this.ws.onopen = () => {
+                    this.connected = true;
+                }
+
+                this.ws.onclose = () => {
+                    this.connected = false;
+                }
+            }
+
+            callMethod(name, ...args) {
+                if (!this.connected) {
+                  console.log('WS not connected, retrying in a sec...')
+                  return new Promise((resolve) => setTimeout(() => this.callMethod(name, ...args), 1000));
+                }
+
+                const payload = {
+                    action: "call",
+                    method: name,
+                    args: args,
+                    challenge: ++this.challenge
+                }
+
+                const ret = new Promise((resolve, reject) => {
+                  this.returns.set(this.challenge, resolve);
+                });
+
+                this.ws.send(JSON.stringify(payload));
+
+                return ret;
+            }
+        }
+
+
+        new Vue({
+          el: '#app',
+          data() {
+            return {
+              rpc: new ClientRPC('127.0.0.1:8081')
+            }
+          },
+          beforeMount() {
+            this.test()
+          },
+          methods: {
+            async test() {
+              const ret = await this.rpc.callMethod("testCall", 42, "foo");
+              console.log("RPC received", ret);
+              console.log(this.rpc.returns);
+            }
+          }
+        })
+
+    </script>
+</body>
+</html>
