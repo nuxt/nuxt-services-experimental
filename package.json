@@ -14,6 +14,7 @@
     "mongodb": "^3.1.10",
     "nuxt-start-edge": "^2.4.0-25753460.5b58272d",
     "pg": "^7.7.1",
+    "redis": "^2.8.0",
     "ws": "^6.1.2"
   },
   "devDependencies": {
