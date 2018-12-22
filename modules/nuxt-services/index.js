@@ -122,19 +122,24 @@ export default async function () {
   })
 }
 
-export function registerServices(type, connectFunction) {
+export function registerBackend(type, connectFunction) {
   return async () => {
-    for (const service in this.options.services) {
-      const serviceData = this.options.services[service]
-      if (Array.isArray(serviceData) && serviceData[0] === 'postgresql') {
-        if (!serviceData[1]) {
-          serviceData[1] = {}
+    const backends = {}
+    for (const backend in this.options.backends) {
+      const backendData = this.options.backends[backend]
+      if (Array.isArray(backendData) && backendData[0] === 'postgresql') {
+        if (!backendData[1]) {
+          backendData[1] = {}
         }
-        if (Object.keys(serviceData).length === 0) {
+        if (Object.keys(backendData).length === 0) {
           throw new Error(`Configuration for \`${service}\` missing.`)
         }
-        this.nuxt[`$${service}`] = await (() => connectFunction.apply(this, serviceData))
+        this.nuxt[`$${backend}`] = await (() => connectFunction.apply(this, backendData))
       }
     }
+    this.addServerMiddleware((req, res, next) => {
+      req.backends = backends
+      next()
+    })
   }
 }

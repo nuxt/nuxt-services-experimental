@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  async asyncData({ params, $services }) {
-    let user = await $services.cache.getJSON(`user:${params.id}`)
+  async asyncData({ params, $services, $cache }) {
+    let user = await $cache.getJSON(`user:${params.id}`)
     if (!user) {
-      user = await $services.users.get(params.id)
+      user = await $cache.users.get(params.id)
       // Cache user for 60 seconds
-      await $services.cache.setJSON(`user:${params.id}`, user, 60)
+      await $cache.cache.setJSON(`user:${params.id}`, user, 60)
     }
     return { user }
   }
