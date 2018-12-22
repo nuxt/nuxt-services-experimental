@@ -2,7 +2,7 @@
 import { promisify } from 'util'
 import consola from 'consola'
 import redis from 'redis'
-import { registerBackends } from '../nuxt-service'
+import { registerBackends } from '../nuxt-services'
 
 async function getJSON(key) {
   const data = await this.get(key)
