@@ -1,6 +1,6 @@
 import consola from 'consola'
 import { MongoClient } from 'mongodb'
-import { registerServices } from '../nuxt-services'
+import { registerBackends } from '../nuxt-services'
 
 async function connect(id, settings) {
   if (!settings.url) {
@@ -31,4 +31,4 @@ async function connect(id, settings) {
   return db
 }
 
-export default registerServices('mongodb', connect)
+export default registerBackends('mongodb', connect)

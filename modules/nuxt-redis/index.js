@@ -2,7 +2,7 @@
 import { promisify } from 'util'
 import consola from 'consola'
 import redis from 'redis'
-import { registerServices } from '../nuxt-service'
+import { registerBackends } from '../nuxt-service'
 
 async function getJSON(key) {
   const data = await this.get(key)
@@ -59,4 +59,4 @@ function connect(id, settings) {
   return db
 }
 
-export default registerServices('redis', connect)
+export default registerBackends('redis', connect)

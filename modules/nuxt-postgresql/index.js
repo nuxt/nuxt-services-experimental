@@ -2,7 +2,7 @@
 import consola from 'consola'
 import sqorn from '@sqorn/pg'
 import pg from 'pg'
-import { registerServices } from '../nuxt-services'
+import { registerBackends } from '../nuxt-services'
 
 async function connect(id, settings) {
   if (!settings.connectionString) {
@@ -33,4 +33,4 @@ async function connect(id, settings) {
   return sqorn({ pg, pool: pool })
 }
 
-export default registerServices('postgresql', connect)
+export default registerBackends('postgresql', connect)

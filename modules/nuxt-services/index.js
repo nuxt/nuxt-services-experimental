@@ -122,7 +122,7 @@ export default async function () {
   })
 }
 
-export function registerBackend(type, connectFunction) {
+export function registerBackends(type, connectFunction) {
   return async () => {
     const backends = {}
     for (const backend in this.options.backends) {
