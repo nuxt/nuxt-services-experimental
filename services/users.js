@@ -4,7 +4,9 @@ export default {
   async list() {
     const users = await this.$db.collection('users').find({}).toArray()
 
-    users.forEach(user => user._id = String(user._id))
+    for (const user of users) {
+      user._id = String(user._id)
+    }
     return users
   },
   async get(id) {
