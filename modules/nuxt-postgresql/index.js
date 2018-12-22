@@ -19,8 +19,8 @@ export default async function (options) {
   } else {
     consola.info(`Connecting to postgresql://${pgsql.host}:${pgsql.port}/${pgsql.database}...`)
   }
-  const pool = await new Pool(pgsql).connect()
+  const pool = await new pg.Pool(pgsql).connect()
   consola.info(`Connected to ${pgsql.database} database`)
 
-  this.nuxt.$db = sqorn({ pg, pool: pg.pool })
+  this.nuxt.$db = sqorn({ pg, pool: pool })
 }

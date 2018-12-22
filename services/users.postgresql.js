@@ -6,12 +6,12 @@ export default {
   get(id) {
     return this.$db`users`({ id })
   },
-  async create(user) {
+  create(user) {
     user.createdAt = new Date()
     user.updatedAt = new Date()
     return this.$db`users`.insert(user).return`id`
   },
-  async remove(id) {
+  remove(id) {
     return !!this.$db`users`.delete({ id }).return`id`
   }
 }
