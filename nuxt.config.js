@@ -5,7 +5,6 @@ export default {
   ],
   mongodb: {
     // url is required
-    url: 'mongodb://localhost:27017',
-    dbName: 'my-db'
+    url: 'mongodb://nuxt-user:nuxt-user3@ds157614.mlab.com:57614/nuxt-users'
   }
 }
