@@ -59,4 +59,6 @@ function connect(id, settings) {
   return db
 }
 
-export default registerBackends('redis', connect)
+export default function () {
+  registerBackends(this, 'redis', connect)
+}

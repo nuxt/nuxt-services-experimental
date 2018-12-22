@@ -122,8 +122,8 @@ export default async function () {
   })
 }
 
-export function registerBackends(type, connectFunction) {
-  return async () => {
+export function registerBackends(nuxt, type, connectFunction) {
+  return (async () => {
     const backends = {}
     for (const backend in this.options.backends) {
       const backendData = this.options.backends[backend]
@@ -141,5 +141,5 @@ export function registerBackends(type, connectFunction) {
       req.backends = backends
       next()
     })
-  }
+  }).bind(nuxt)
 }
