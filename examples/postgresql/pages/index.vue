@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="user in users" :key="user._id">
+    <div v-for="user in users" :key="user.id">
       <pre>{{ user }}</pre>
       <nuxt-link :to="`/users/${user.id}`">See user</nuxt-link>
       <button @click="removeUser(user.id)">X</button>

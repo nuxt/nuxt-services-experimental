@@ -4,7 +4,7 @@ export default {
     return this.$db.from`users`
   },
   get(id) {
-    return this.$db`users`({ id: parseInt(id) })
+    return this.$db`users`({ id: parseInt(id) }).return`*`
   },
   create(user) {
     user.createdAt = new Date()
