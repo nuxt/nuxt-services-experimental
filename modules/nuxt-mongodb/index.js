@@ -8,7 +8,11 @@ export default async function (options) {
     throw new Error('No `mongodb.url` configuration found')
   }
 
-  if (!mongodb.dbName) {
+  let dbNameMatch = mongodb.url.match(/[^/]+\/([^/]+)$/)
+  // If dbName is not present in url
+  if (dbNameMatch) { // eslint-disable-line no-cond-assign
+    mongodb.dbName = dbNameMatch[1]
+  } else if (!mongodb.dbName) {
     throw new Error('No `mongodb.dbName` configuration found')
   }
 

@@ -16,13 +16,13 @@ or [PostgreSQL](https://www.postgresql.org/) via [Homebrew](https://brew.sh/).
 ## Development
 
 ```
-yarn dev -- examples/mongodb
-yarn dev -- examples/postgresql
+yarn dev examples/mongodb
+yarn dev examples/postgresql
 ```
 
 ## Production
 
 ```
-yarn build -- examples/mongodb
-yarn start -- examples/postgresql
+yarn build examples/mongodb
+yarn start examples/postgresql
 ```
