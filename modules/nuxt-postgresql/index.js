@@ -4,18 +4,12 @@ import { Pool } from 'pg'
 export default async function (options) {
   const pgsql = Object.assign({}, options, this.options.postgresql)
 
-  let connectionInfo
-  if (pgsql.connectionString) {
-    connectionInfo = {
-      connectionString: pgsql.connectionString
-    }
-  } else {
-    for (const configProp of ['connectionString', 'user', 'database', 'host', 'password', 'port']) {
+  if (!pgsql.connectionString) {
+    for (const configProp of ['user', 'database', 'host', 'password', 'port']) {
       if (!pgsql[configProp]) {
         throw new Error(`PostgreSQL connection configuration missing or incomplete`)
       }
     }
-    connectionInfo = pgsql
   }
 
   if (pgsql.connectionString) {
