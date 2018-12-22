@@ -4,7 +4,6 @@ export default {
     '~/modules/nuxt-services'
   ],
   postgresql: {
-    url: 'mongodb://localhost:27017',
-    dbName: 'my-db'
+    connectionString: 'postgresql://user@localhost:5432/dbName'
   }
 }
