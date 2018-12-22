@@ -33,18 +33,4 @@ function connect (id, settings) {
 }
 
 
-export default async function (options) {
-  for (const service in this.options.services) {
-    const serviceData = this.options.services[service]
-    if (Array.isArray(serviceData) && serviceData[0] === 'postgresql') {
-      let settings = {}
-      if (!serviceData[1]) {
-        serviceData[1] = {}
-      }
-      if (Object.keys(serviceData).length === 0) {
-        throw new Error(`Configuration for \`${service}\` missing.`)
-      }
-      this.nuxt[`$${service}`] = connect.apply(this, serviceData)
-    }
-  }
-}
+export default registerServices('postgresql')

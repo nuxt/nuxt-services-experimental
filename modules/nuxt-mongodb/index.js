@@ -1,8 +1,8 @@
 import consola from 'consola'
 import { MongoClient } from 'mongodb'
+import { registerServices } from '../nuxt-services'
 
-function connect(id, settings) {
-
+async function connect(id, settings) {
   if (!settings.url) {
     throw new Error(`No \`url\` configuration found for service \`${id}\``)
   }
@@ -31,18 +31,4 @@ function connect(id, settings) {
   return db
 }
 
-export default async function (options) {
-  for (const service in this.options.services) {
-    const serviceData = this.options.services[service]
-    if (Array.isArray(serviceData) && serviceData[0] === 'mongodb') {
-      let settings = {}
-      if (!serviceData[1]) {
-        serviceData[1] = {}
-      }
-      if (Object.keys(serviceData).length === 0) {
-        throw new Error(`Configuration for \`${service}\` missing.`)
-      }
-      this.nuxt[`$${service}`] = connect.apply(this, serviceData)
-    }
-  }
-}
+export default registerServices('mongodb', connect)
