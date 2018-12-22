@@ -26,7 +26,7 @@ export default {
     },
     async removeUser(id) {
       await this.$services.users.remove(id)
-      this.users = this.users.filter((user) => user._id !== id)
+      this.users = this.users.filter(user => user._id !== id)
     }
   }
 }

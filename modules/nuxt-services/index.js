@@ -5,7 +5,7 @@ import WebSocket from 'ws'
 
 const glob = promisify(require('glob'))
 
-export default async function() {
+export default async function () {
   /*
    * Fetch services
    */
@@ -15,7 +15,7 @@ export default async function() {
   const services = {}
   const servicesMap = {}
 
-  files.map(path => {
+  files.map((path) => {
     const serviceKey = path
       .replace(servicesPath, '')
       .replace(/^\//, '')
@@ -24,8 +24,7 @@ export default async function() {
     const service = this.nuxt.resolver.requireModule(path) || {}
     // TODO: Use class instead, and have this.context
     Object.keys(service).forEach((method) => {
-      if (typeof service[method] === 'function')
-        service[method] = service[method].bind(this.nuxt)
+      if (typeof service[method] === 'function') { service[method] = service[method].bind(this.nuxt) }
     })
 
     servicesMap[serviceKey] = Object.keys(service)
@@ -64,23 +63,22 @@ export default async function() {
   /*
    ** Create WS server
    */
-  this.nuxt.hook('listen', server => {
+  this.nuxt.hook('listen', (server) => {
     const wss = new WebSocket.Server({ server })
 
-    wss.on('connection', ws => {
+    wss.on('connection', (ws) => {
       ws.services = services
 
       ws.on('error', err => Consola.error(err))
 
-      ws.on('message', async msg => {
+      ws.on('message', async (msg) => {
         let obj
         try {
-          obj = (0,eval)(`(${msg})`)
+          obj = (0, eval)(`(${msg})`)
         } catch (e) {
           return // Ignore it
         }
-        if (typeof obj.challenge === 'undefined')
-          return consola.error('No challenge given to', obj)
+        if (typeof obj.challenge === 'undefined') { return consola.error('No challenge given to', obj) }
 
         let data = null
         let error = null
@@ -89,7 +87,7 @@ export default async function() {
           case 'call':
             try {
               let serviceModule = ws.services
-              obj.module.split('/').forEach((m) => serviceModule = serviceModule[m])
+              obj.module.split('/').forEach(m => serviceModule = serviceModule[m])
               data = await serviceModule[obj.method].call(this.nuxt, ...obj.args)
             } catch (e) {
               error = JSON.parse(JSON.stringify(e, Object.getOwnPropertyNames(e)))
