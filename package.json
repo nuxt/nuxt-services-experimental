@@ -10,13 +10,13 @@
     "lint": "eslint --fix --ext .js,.vue examples/"
   },
   "dependencies": {
+    "@sqorn/pg": "^0.0.45",
     "mongodb": "^3.1.10",
     "nuxt-start-edge": "^2.4.0-25753460.5b58272d",
     "pg": "^7.7.1",
     "ws": "^6.1.2"
   },
   "devDependencies": {
-    "nuxt-edge": "^2.4.0-25753460.5b58272d",
     "@nuxtjs/eslint-config": "0.0.1",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -29,6 +29,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^4.7.1",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "nuxt-edge": "^2.4.0-25753460.5b58272d"
   }
 }

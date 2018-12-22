@@ -913,6 +913,70 @@
     mustache "^2.3.0"
     stack-trace "0.0.10"
 
+"@sqorn/adapter-pg@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/adapter-pg/-/adapter-pg-0.0.45.tgz#38d16e1799a3d0ade2c62f3e23baccbb9253fff9"
+  integrity sha512-+MYvdvrKmxQMPwpGj0e3o/slje9TTZRaK7Y+U/5x21LJY6+aRJYu3neRI0l+Bxi1wuYI3I9Ip3TE1qvTgEwJrg==
+
+"@sqorn/builder-expression@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/builder-expression/-/builder-expression-0.0.45.tgz#c547b686b851c0d63f72eb4f499e945f3c388e73"
+  integrity sha512-zynCInQvGwGymxEa+BfWtr+5sFTwFuGCg5eMWMHo4arDQ41YhOVLwNBp/P0RPUr5yaMsdFlrrWgMo48Dcbnt8Q==
+  dependencies:
+    "@sqorn/lib-util" "^0.0.45"
+
+"@sqorn/builder-sq@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/builder-sq/-/builder-sq-0.0.45.tgz#6ddcbdafc0e52cb1fe2e9d9aac40f0c6b95c4bc5"
+  integrity sha512-NDRwfVct8vjAhHIg0xuW1XKjVZQA4YBnyRKBBXK9TNZfDwdWHW9v046syvmT8h/rjToyoGKr4RSGoUuFihHFkA==
+  dependencies:
+    "@sqorn/lib-util" "^0.0.45"
+
+"@sqorn/dialect-postgres@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/dialect-postgres/-/dialect-postgres-0.0.45.tgz#6316f0035394c123ebf91f48abe7a2e800b86446"
+  integrity sha512-zXENx+ZW3iTtAh/gxLFqLLepTFKOlPPR3uAH0QhNHe7UT6SbmKW9RCn5JAWZx+wYDLlM8cqyps1J6f6l7mRgfg==
+  dependencies:
+    "@sqorn/lib-expression" "^0.0.45"
+    "@sqorn/lib-sq" "^0.0.45"
+
+"@sqorn/lib-core@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/lib-core/-/lib-core-0.0.45.tgz#8bbe5a304d70b9f55c80ed6cc83e5ae01c4af160"
+  integrity sha512-GtedLxAxEK7idXU9i7P1r6/19yYedQueujz69t216Jt6VTww0S70Lnz901CVBsCgiJepV7DPB1Bkf3/AZ8bXfQ==
+  dependencies:
+    "@sqorn/builder-expression" "^0.0.45"
+    "@sqorn/builder-sq" "^0.0.45"
+    "@sqorn/lib-util" "^0.0.45"
+
+"@sqorn/lib-expression@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/lib-expression/-/lib-expression-0.0.45.tgz#e01130c30b0e0a82072fa2f9561fbaf2e3ba617d"
+  integrity sha512-k5W0CRiuZQmCu9PA7pvSpwbKk+cX+vbvf5HuuLnFCgchrB68TuxsGV3Cj4xJ3n1u0DJWNhbxlg1EvS0idXMg4Q==
+  dependencies:
+    "@sqorn/lib-util" "^0.0.45"
+
+"@sqorn/lib-sq@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/lib-sq/-/lib-sq-0.0.45.tgz#b537a7f4be3b958c700fe22a4a478a6fe3fed199"
+  integrity sha512-5JfWflJL6hoUoxiDAqapogn+XfI+0ZMzXuaV9jsHr9S32bnU+CMOfh+yjrRf/TPsI2xu5RFhTMTZxii2UFcWYA==
+  dependencies:
+    "@sqorn/lib-util" "^0.0.45"
+
+"@sqorn/lib-util@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/lib-util/-/lib-util-0.0.45.tgz#6d24430766c197d30416a23b6db2e9452c6d3ecd"
+  integrity sha512-48zjhh9EameV+EFhS7FscbEk7KbkGoK7LbuM5w36RgVQ7t2cDQUfOMFA1HsBh03/B1A6w8UGYBGMSwqMlZ705g==
+
+"@sqorn/pg@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@sqorn/pg/-/pg-0.0.45.tgz#2b01aa2284ca611ec4f259d052cea9efcfc9f1a0"
+  integrity sha512-HU757juDao89PJqwLmJYhEtqQyJkq/xQdMmqjL05qe2t0wsm1NhblMtS1Fbx4XeTrQdMO5MD9hCmLUJhWRMgMQ==
+  dependencies:
+    "@sqorn/adapter-pg" "^0.0.45"
+    "@sqorn/dialect-postgres" "^0.0.45"
+    "@sqorn/lib-core" "^0.0.45"
+
 "@types/q@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.1.tgz#48fd98c1561fe718b61733daed46ff115b496e18"

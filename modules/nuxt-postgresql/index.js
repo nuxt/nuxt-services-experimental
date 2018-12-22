@@ -1,6 +1,6 @@
 
 import consola from 'consola'
-import sqorn from 'sqorn'
+import sqorn from '@sqorn/pg'
 import pg from 'pg'
 
 export default async function (options) {
