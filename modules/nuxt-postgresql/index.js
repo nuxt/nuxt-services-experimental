@@ -2,8 +2,9 @@
 import consola from 'consola'
 import sqorn from '@sqorn/pg'
 import pg from 'pg'
+import { registerServices } from '../nuxt-services'
 
-function connect (id, settings) {
+async function connect (id, settings) {
   if (!settings.connectionString) {
     for (const configProp of ['user', 'database', 'host', 'password', 'port']) {
       if (!pgsql[configProp]) {
@@ -33,4 +34,4 @@ function connect (id, settings) {
 }
 
 
-export default registerServices('postgresql')
+export default registerServices('postgresql', connect)
