@@ -60,5 +60,5 @@ function connect(id, settings) {
 }
 
 export default function () {
-  registerBackends(this, 'redis', connect)
+  registerBackends.call(this, 'redis', connect)
 }

@@ -34,6 +34,6 @@ async function connect(id, settings) {
 }
 
 export default function () {
-  registerBackends(this, 'postgresql', connect)
+  registerBackends.call(this, 'postgresql', connect)
 }
 
