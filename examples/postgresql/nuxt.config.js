@@ -4,6 +4,6 @@ export default {
     '../../modules/nuxt-services'
   ],
   postgresql: {
-    connectionString: 'postgresql://user@localhost:5432/dbName'
+    connectionString: 'postgres://xegxblez:8TNSEwUTbGA3756-11dis2RsE0c0cFTV@baasu.db.elephantsql.com:5432/xegxblez'
   }
 }
