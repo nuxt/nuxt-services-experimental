@@ -7,7 +7,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --fix --ext .js,.vue modules pages services"
+    "lint": "eslint --fix --ext .js,.vue examples/"
   },
   "dependencies": {
     "mongodb": "^3.1.10",

@@ -1,7 +1,7 @@
 export default {
   modules: [
-    '~/modules/nuxt-mongodb',
-    '~/modules/nuxt-services'
+    '../../modules/nuxt-mongodb',
+    '../../modules/nuxt-services'
   ],
   mongodb: {
     // url is required

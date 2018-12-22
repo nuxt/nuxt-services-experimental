@@ -8,17 +8,21 @@
 yarn install
 ```
 
-Make sure to have [MongoDB](https://www.mongodb.com) installed and running on your machine.
+You'll need to provide working connection info for the database you wish to test. 
+
+For testing locally, we recommend installing [MongoDB](https://www.mongodb.com) 
+or [PostgreSQL](https://www.postgresql.org/) via [Homebrew](https://brew.sh/).
 
 ## Development
 
 ```
-yarn dev
+yarn dev -- examples/mongodb
+yarn dev -- examples/postgresql
 ```
 
 ## Production
 
 ```
-yarn build
-yarn start
+yarn build -- examples/mongodb
+yarn start -- examples/postgresql
 ```
