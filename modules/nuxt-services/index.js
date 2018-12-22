@@ -26,7 +26,9 @@ export default async function () {
     const service = this.nuxt.resolver.requireModule(path) || {}
     // TODO: Use class instead, and have this.context
     Object.keys(service).forEach((method) => {
-      if (typeof service[method] === 'function') { service[method] = service[method].bind(this.nuxt) }
+      if (typeof service[method] === 'function') {
+        service[method] = service[method].bind(this.nuxt)
+      }
     })
 
     servicesMap[serviceKey] = Object.keys(service)
@@ -81,7 +83,9 @@ export default async function () {
         } catch (e) {
           return // Ignore it
         }
-        if (typeof obj.challenge === 'undefined') { return consola.error('No challenge given to', obj) }
+        if (typeof obj.challenge === 'undefined') {
+          return consola.error('No challenge given to', obj)
+        }
 
         let data = null
         let error = null
