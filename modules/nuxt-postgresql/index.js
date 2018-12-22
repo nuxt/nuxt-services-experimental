@@ -27,6 +27,7 @@ async function connect(id, settings) {
     consola.info(`Connecting to postgresql://${
       settings.host}:${settings.port}/${settings.database}...`)
   }
+  
   const pool = await new pg.Pool(settings).connect()
   consola.info(`Connected to ${settings.database} database`)
 

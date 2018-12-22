@@ -133,8 +133,8 @@ export async function registerBackends(type, connectFunction) {
       if (Object.keys(backendData).length === 0) {
         throw new Error(`Configuration for \`${service}\` missing.`)
       }
-      console.log('backend>', backend)
-      this.nuxt[`$${backend}`] = await connectFunction.apply(this, backendData)
+      backends[`$${backend}`] = await connectFunction.apply(this, backendData)
+      this.nuxt[`$${backend}`] = backends[`$${backend}`]
     }
   }
   this.addServerMiddleware((req, res, next) => {
