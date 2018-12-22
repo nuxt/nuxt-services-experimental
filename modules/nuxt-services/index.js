@@ -127,14 +127,13 @@ export function registerServices(type, connectFunction) {
     for (const service in this.options.services) {
       const serviceData = this.options.services[service]
       if (Array.isArray(serviceData) && serviceData[0] === 'postgresql') {
-        const settings = {}
         if (!serviceData[1]) {
           serviceData[1] = {}
         }
         if (Object.keys(serviceData).length === 0) {
           throw new Error(`Configuration for \`${service}\` missing.`)
         }
-        this.nuxt[`$${service}`] = await connect.apply(this, serviceData)
+        this.nuxt[`$${service}`] = await (() => connectFunction.apply(this, serviceData))
       }
     }
   }

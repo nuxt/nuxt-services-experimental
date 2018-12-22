@@ -13,7 +13,7 @@ function setJSON(key, value, cacheTimeout) {
   return this.set(key, JSON.stringify(value), 'EX', cacheTimeout)
 }
 
-async function connect(id, settings) {
+function connect(id, settings) {
   if (!settings.host) {
     consola.warn(`No \`host\` configuration found for service \`${id}\`, defaulting to \`localhost\``)
     settings.host = 'localhost'
