@@ -45,8 +45,8 @@ export default async function (options) {
 
   const errorCallback = () => {
     setTimeout(() => {
-      exportable.store = connect()
-      exportable.store.on('error', errorCallback)
+      this.nuxt.$db = connect()
+      this.nuxt.$db.on('error', errorCallback)
     }, redisConfig.autoReconnectInterval || 2000)
   }
 
