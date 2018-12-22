@@ -13,7 +13,7 @@ export default async function (options) {
   }
 
   if (pgsql.connectionString) {
-    consola.info(`Connecting to ${connectionString}...`)
+    consola.info(`Connecting to ${pgsql.connectionString}...`)
   } else {
     consola.info(`Connecting to postgresql://${pgsql.host}:${pgsql.port}/${pgsql.database}...`)
   }

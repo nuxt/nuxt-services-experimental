@@ -1,5 +1,7 @@
+
 import { resolve, join } from 'path'
 import { promisify } from 'util'
+import consola from 'consola'
 import devalue from '@nuxtjs/devalue'
 import WebSocket from 'ws'
 
@@ -69,11 +71,12 @@ export default async function () {
     wss.on('connection', (ws) => {
       ws.services = services
 
-      ws.on('error', err => Consola.error(err))
+      ws.on('error', err => consola.error(err))
 
       ws.on('message', async (msg) => {
         let obj
         try {
+          // eslint-disable-next-line no-eval
           obj = (0, eval)(`(${msg})`)
         } catch (e) {
           return // Ignore it
@@ -87,11 +90,15 @@ export default async function () {
           case 'call':
             try {
               let serviceModule = ws.services
-              obj.module.split('/').forEach(m => serviceModule = serviceModule[m])
+              for (const m of obj.module.split('/')) {
+                serviceModule = serviceModule[m]
+              }
               data = await serviceModule[obj.method].call(this.nuxt, ...obj.args)
             } catch (e) {
               error = JSON.parse(JSON.stringify(e, Object.getOwnPropertyNames(e)))
-              if (!this.options.dev) delete error.stack
+              if (!this.options.dev) {
+                delete error.stack
+              }
             }
             break
           default:
