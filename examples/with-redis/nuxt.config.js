@@ -8,7 +8,7 @@ export default {
     cache: ['redis', {
       host: 'redis-17954.c62.us-east-1-4.ec2.cloud.redislabs.com',
       port: 17954,
-      auth: 'S7otcL62bC2Sy5Y0eoaviGJqbMKwjoP1'
+      auth: 'S7otcL62bC2Sy5Y0eoaviGJqbMKwjoP1',
       db: 'nuxt-cache'
     }],
     db: ['postgresql', {

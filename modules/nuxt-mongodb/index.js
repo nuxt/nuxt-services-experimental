@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb'
 function connect(id, settings) {
 
   if (!settings.url) {
-    throw new Error(`No \`url\` configuration found for \`${id}\``)
+    throw new Error(`No \`url\` configuration found for service \`${id}\``)
   }
 
   let dbNameMatch = settings.url.match(/[^/]+\/([^/]+)$/)
@@ -42,7 +42,7 @@ export default async function (options) {
       if (Object.keys(serviceData).length === 0) {
         throw new Error(`Configuration for \`${service}\` missing.`)
       }
-      this.nuxt[`$${service}`] = connect(...serviceData)
+      this.nuxt[`$${service}`] = connect.apply(this, serviceData)
     }
   }
 }
