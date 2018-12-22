@@ -2,8 +2,8 @@
   <div>
     <div v-for="user in users" :key="user._id">
       <pre>{{ user }}</pre>
-      <nuxt-link :to="`/users/${user._id}`">See user</nuxt-link>
-      <button @click="removeUser(user._id)">X</button>
+      <nuxt-link :to="`/users/${user.id}`">See user</nuxt-link>
+      <button @click="removeUser(user.id)">X</button>
     </div>
     <button @click="addUser">Add user</button>
   </div>
@@ -26,7 +26,7 @@ export default {
     },
     async removeUser(id) {
       await this.$services.users.remove(id)
-      this.users = this.users.filter(user => user._id !== id)
+      this.users = this.users.filter(user => user.id !== id)
     }
   }
 }
