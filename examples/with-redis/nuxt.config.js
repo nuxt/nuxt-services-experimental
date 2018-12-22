@@ -4,7 +4,7 @@ export default {
     '../../modules/nuxt-postgresql',
     '../../modules/nuxt-services'
   ],
-  services: {
+  backends: {
     cache: ['redis', {
       host: 'redis-17954.c62.us-east-1-4.ec2.cloud.redislabs.com',
       port: 17954,
