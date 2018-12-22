@@ -16,8 +16,8 @@ export default {
     return user
   },
   async create(user) {
-    user.createdAt = new Date()
-    user.updatedAt = new Date()
+    user.created_at = new Date()
+    user.updated_at = new Date()
 
     await this.$db.collection('users').insertOne(user)
 

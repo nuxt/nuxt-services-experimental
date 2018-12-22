@@ -12,6 +12,14 @@ export default async function (options) {
         throw new Error(`PostgreSQL connection configuration missing or incomplete`)
       }
     }
+  } else {
+    let dbNameMatch = pgsql.connectionString.match(/[^/]+\/([^/]+)$/)
+    if (dbNameMatch) {
+      pgsql.database = dbNameMatch[1]
+    } else if (!pgsql.database) {
+      // If database is neither present in url nor separately defined
+      throw new Error('No `postgresql.database` configuration found')
+    }
   }
 
   if (pgsql.connectionString) {
