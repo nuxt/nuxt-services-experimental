@@ -7,7 +7,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --fix --ext .js,.vue examples/"
+    "lint": "eslint --fix --ext .js,.vue modules/ examples/"
   },
   "dependencies": {
     "@sqorn/pg": "^0.0.45",

@@ -4,15 +4,15 @@ import sqorn from '@sqorn/pg'
 import pg from 'pg'
 import { registerServices } from '../nuxt-services'
 
-async function connect (id, settings) {
+async function connect(id, settings) {
   if (!settings.connectionString) {
     for (const configProp of ['user', 'database', 'host', 'password', 'port']) {
-      if (!pgsql[configProp]) {
+      if (!settings[configProp]) {
         throw new Error(`No \`${configProp}\` configuration found for service \`${id}\``)
       }
     }
   } else {
-    let dbNameMatch = settings.connectionString.match(/[^/]+\/([^/]+)$/)
+    const dbNameMatch = settings.connectionString.match(/[^/]+\/([^/]+)$/)
     if (dbNameMatch) {
       settings.database = dbNameMatch[1]
     } else if (!settings.database) {
@@ -27,11 +27,10 @@ async function connect (id, settings) {
     consola.info(`Connecting to postgresql://${
       settings.host}:${settings.port}/${settings.database}...`)
   }
-  const pool = await new pg.Pool(pgsql).connect()
+  const pool = await new pg.Pool(settings).connect()
   consola.info(`Connected to ${settings.database} database`)
 
   return sqorn({ pg, pool: pool })
 }
-
 
 export default registerServices('postgresql', connect)

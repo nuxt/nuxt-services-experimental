@@ -4,16 +4,16 @@ import consola from 'consola'
 import redis from 'redis'
 import { registerServices } from '../nuxt-service'
 
-async function getJSON(key) {  
+async function getJSON(key) {
   const data = await this.get(key)
   return JSON.parse(data)
 }
 
-async function setJSON(key, value, cacheTimeout) {
-  this.set(key, JSON.stringify(value), 'EX', cacheTimeout)
+function setJSON(key, value, cacheTimeout) {
+  return this.set(key, JSON.stringify(value), 'EX', cacheTimeout)
 }
 
-async function connect (id, settings) {
+async function connect(id, settings) {
   if (!settings.host) {
     consola.warn(`No \`host\` configuration found for service \`${id}\`, defaulting to \`localhost\``)
     settings.host = 'localhost'
@@ -34,7 +34,7 @@ async function connect (id, settings) {
   consola.info(`Connecting to redis://${settings.host}:${settings.port}/${settings.db}...`)
 
   const _connect = () => {
-    const client = redis.createClient(redisConfig)
+    const client = redis.createClient(settings)
     client.get = promisify(client.get).bind(client)
     client.set = promisify(client.set).bind(client)
     client.getJSON = getJSON.bind(client)

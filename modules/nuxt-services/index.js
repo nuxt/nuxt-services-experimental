@@ -122,12 +122,12 @@ export default async function () {
   })
 }
 
-export function registerServices (type, connectFunction) {
+export function registerServices(type, connectFunction) {
   return async () => {
     for (const service in this.options.services) {
       const serviceData = this.options.services[service]
       if (Array.isArray(serviceData) && serviceData[0] === 'postgresql') {
-        let settings = {}
+        const settings = {}
         if (!serviceData[1]) {
           serviceData[1] = {}
         }

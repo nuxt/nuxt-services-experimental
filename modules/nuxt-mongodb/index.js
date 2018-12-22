@@ -7,7 +7,7 @@ async function connect(id, settings) {
     throw new Error(`No \`url\` configuration found for service \`${id}\``)
   }
 
-  let dbNameMatch = settings.url.match(/[^/]+\/([^/]+)$/)
+  const dbNameMatch = settings.url.match(/[^/]+\/([^/]+)$/)
 
   if (dbNameMatch) {
     settings.dbName = dbNameMatch[1]
