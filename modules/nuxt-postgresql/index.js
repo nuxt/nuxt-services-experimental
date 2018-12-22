@@ -3,13 +3,6 @@ import consola from 'consola'
 import sqorn from 'sqorn'
 import pg from 'pg'
 
-function makeSqornProxy(pool) {
-  const sq = sqorn({ pg, pool: pg.pool })
-  return new Proxy({}, {
-    get: (_, prop) => sq`${prop}`
-  }
-}
-
 export default async function (options) {
   const pgsql = Object.assign({}, options, this.options.postgresql)
 
@@ -29,5 +22,5 @@ export default async function (options) {
   const pool = await new Pool(pgsql).connect()
   consola.info(`Connected to ${pgsql.database} database`)
 
-  this.nuxt.$db = makeSqornProxy(pool)
+  this.nuxt.$db = sqorn({ pg, pool: pg.pool })
 }
