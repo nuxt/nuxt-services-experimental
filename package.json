@@ -11,9 +11,23 @@
   "dependencies": {
     "mongodb": "^3.1.10",
     "nuxt-start-edge": "^2.4.0-25753460.5b58272d",
+    "pg": "^7.7.1",
     "ws": "^6.1.2"
   },
   "devDependencies": {
-    "nuxt-edge": "^2.4.0-25753460.5b58272d"
+    "nuxt-edge": "^2.4.0-25753460.5b58272d",
+    "@nuxtjs/eslint-config": "0.0.1",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^4.7.1",
+    "jest": "^23.6.0"
   }
 }
