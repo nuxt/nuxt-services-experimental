@@ -1,4 +1,3 @@
-import consola from 'consola'
 
 export default {
   list() {
