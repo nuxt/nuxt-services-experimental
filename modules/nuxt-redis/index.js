@@ -13,21 +13,21 @@ function setJSON(key, value, cacheTimeout) {
   return this.set(key, JSON.stringify(value), 'EX', cacheTimeout)
 }
 
-function connect(id, settings) {
+function connect(backend, settings) {
   if (!settings.host) {
-    consola.warn(`No \`host\` configuration found for service \`${id}\`, defaulting to \`localhost\``)
+    consola.warn(`No \`host\` configuration found for service \`${backend}\`, defaulting to \`localhost\``)
     settings.host = 'localhost'
   }
 
   if (!settings.port) {
-    consola.warn(`No \`port\` configuration found for service \`${id}\`, defaulting to \`6379\``)
+    consola.warn(`No \`port\` configuration found for service \`${backend}\`, defaulting to \`6379\``)
     settings.port = 6379
   }
 
   if (settings.db) {
     settings.db = { db: settings.db }
   } else {
-    consola.warn(`No \`db\` configuration found for service \`${id}\`, defaulting to \`0\``)
+    consola.warn(`No \`db\` configuration found for service \`${backend}\`, defaulting to \`0\``)
     settings.db = { db: 0 }
   }
 
@@ -56,7 +56,7 @@ function connect(id, settings) {
 
   consola.info(`Connected to ${settings.host} database`)
 
-  return db
+  this.nuxt[`$${backend}`] = db
 }
 
 export default async function () {

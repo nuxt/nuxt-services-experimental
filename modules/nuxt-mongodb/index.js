@@ -2,9 +2,9 @@ import consola from 'consola'
 import { MongoClient } from 'mongodb'
 import { registerBackends } from '../nuxt-services'
 
-async function connect(id, settings) {
+async function connect(backend, settings) {
   if (!settings.url) {
-    throw new Error(`No \`url\` configuration found for service \`${id}\``)
+    throw new Error(`No \`url\` configuration found for service \`${backend}\``)
   }
 
   const dbNameMatch = settings.url.match(/[^/]+\/([^/]+)$/)
@@ -28,7 +28,7 @@ async function connect(id, settings) {
   const db = client.db(settings.dbName)
   consola.info(`Connected to ${settings.dbName} database`)
 
-  return db
+  this.nuxt[`$${backend}`] = db
 }
 
 export default async function () {

@@ -135,8 +135,8 @@ export async function registerBackends(type, connectFunction) {
       }
       console.log('backend', backend)
       console.log('backendData[1]', backendData[1])
-      backends[backend] = await connectFunction.call(this, backend, backendData[1])
-      this.nuxt[`$${backend}`] = backends[backend]
+      await connectFunction.call(this, backend, backendData[1])
+      backends[backend] = this.nuxt[`$${backend}`]
     }
   }
   this.addServerMiddleware((req, res, next) => {

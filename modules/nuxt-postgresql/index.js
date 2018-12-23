@@ -4,11 +4,11 @@ import sqorn from '@sqorn/pg'
 import pg from 'pg'
 import { registerBackends } from '../nuxt-services'
 
-async function connect(id, settings) {
+async function connect(backend, settings) {
   if (!settings.connectionString) {
     for (const configProp of ['user', 'database', 'host', 'password', 'port']) {
       if (!settings[configProp]) {
-        throw new Error(`No \`${configProp}\` configuration found for service \`${id}\``)
+        throw new Error(`No \`${configProp}\` configuration found for service \`${backend}\``)
       }
     }
   } else {
@@ -28,11 +28,10 @@ async function connect(id, settings) {
       settings.host}:${settings.port}/${settings.database}...`)
   }
 
-  const pool = new pg.Pool(settings)
-  await pool.connect()
+  const pool = await new pg.Pool(settings).connect()
   consola.info(`Connected to ${settings.database} database`)
 
-  return sqorn({ pg, pool: pool })
+  this.nuxt[`$${backend}`] = sqorn({ pg, pool })
 }
 
 export default async function () {
