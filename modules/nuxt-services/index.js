@@ -131,10 +131,8 @@ export async function registerBackends(type, connectFunction) {
         backendData[1] = {}
       }
       if (Object.keys(backendData).length === 0) {
-        throw new Error(`Configuration for \`${service}\` missing.`)
+        throw new Error(`Configuration for \`${backend}\` missing.`)
       }
-      console.log('backend', backend)
-      console.log('backendData[1]', backendData[1])
       await connectFunction.call(this, backend, backendData[1])
       backends[backend] = this.nuxt[`$${backend}`]
     }

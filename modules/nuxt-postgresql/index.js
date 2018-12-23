@@ -37,4 +37,3 @@ async function connect(backend, settings) {
 export default async function () {
   await registerBackends.call(this, 'postgresql', connect)
 }
-
