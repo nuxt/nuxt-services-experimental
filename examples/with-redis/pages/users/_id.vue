@@ -6,14 +6,11 @@
 </template>
 
 <script>
+import consola from 'consola'
+
 export default {
-  async asyncData({ params, $services, $cache }) {
-    let user = await $cache.getJSON(`user:${params.id}`)
-    if (!user) {
-      user = await $cache.users.get(params.id)
-      // Cache user for 60 seconds
-      await $cache.cache.setJSON(`user:${params.id}`, user, 60)
-    }
+  async asyncData({ params, $services }) {
+    const user = await $services.users.get(params.id)
     return { user }
   }
 }

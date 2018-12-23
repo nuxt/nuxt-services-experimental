@@ -137,8 +137,4 @@ export async function registerBackends(type, connectFunction) {
       backends[backend] = this.nuxt[`$${backend}`]
     }
   }
-  this.addServerMiddleware((req, res, next) => {
-    req.backends = backends
-    next()
-  })
 }

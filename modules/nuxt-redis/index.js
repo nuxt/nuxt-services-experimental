@@ -24,14 +24,12 @@ function connect(backend, settings) {
     settings.port = 6379
   }
 
-  if (settings.db) {
-    settings.db = { db: settings.db }
-  } else {
+  if (typeof settings.db === 'undefined') {
     consola.warn(`No \`db\` configuration found for service \`${backend}\`, defaulting to \`0\``)
-    settings.db = { db: 0 }
+    settings.db = 0
   }
 
-  consola.info(`Connecting to redis://${settings.host}:${settings.port}/${settings.db}...`)
+  consola.info(`Connecting to redis://${settings.host}:${settings.port}/${settings.db.db}...`)
 
   const _connect = () => {
     const client = redis.createClient(settings)
@@ -41,21 +39,12 @@ function connect(backend, settings) {
     client.setJSON = setJSON.bind(client)
     return client
   }
-
-  let db
-
-  const errorCallback = () => {
-    setTimeout(() => {
-      db = _connect()
-      db.on('error', errorCallback)
-    }, settings.autoReconnectInterval || 2000)
-  }
-
-  db = _connect()
-  db.on('error', errorCallback)
+  const db = _connect()
+  // db.on('error', errorCallback)
 
   consola.info(`Connected to ${settings.host} database`)
 
+  consola.info('backend', `$${backend}`)
   this.nuxt[`$${backend}`] = db
 }
 
