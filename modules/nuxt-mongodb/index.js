@@ -31,6 +31,6 @@ async function connect(id, settings) {
   return db
 }
 
-export default function () {
-  registerBackends.call(this, 'mongodb', connect)
+export default async function () {
+  await registerBackends.call(this, 'mongodb', connect)
 }

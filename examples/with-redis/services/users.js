@@ -1,7 +1,7 @@
 
 export default {
   list() {
-    return this.$db.from`users`
+    return this.$db`users`
   },
   get(id) {
     return this.$db`users`({ id: parseInt(id) }).return`*`

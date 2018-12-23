@@ -59,6 +59,6 @@ function connect(id, settings) {
   return db
 }
 
-export default function () {
-  registerBackends.call(this, 'redis', connect)
+export default async function () {
+  await registerBackends.call(this, 'redis', connect)
 }

@@ -35,7 +35,7 @@ async function connect(id, settings) {
   return sqorn({ pg, pool: pool })
 }
 
-export default function () {
-  registerBackends.call(this, 'postgresql', connect)
+export default async function () {
+  await registerBackends.call(this, 'postgresql', connect)
 }
 
