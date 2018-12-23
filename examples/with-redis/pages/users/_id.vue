@@ -6,8 +6,6 @@
 </template>
 
 <script>
-import consola from 'consola'
-
 export default {
   async asyncData({ params, $services }) {
     const user = await $services.users.get(params.id)
