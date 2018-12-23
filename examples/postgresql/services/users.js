@@ -1,6 +1,8 @@
+import consola from 'consola'
 
 export default {
   list() {
+    consola.info(this)
     return this.$db.from`users`
   },
   get(id) {
