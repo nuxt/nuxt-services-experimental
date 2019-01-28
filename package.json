@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "nuxt-services",
   "description": "",
   "version": "0.1.0",
   "scripts": {
@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/devalue": "^1.2.0",
     "mongodb": "^3.1.10",
     "nuxt-start-edge": "^2.4.0-25753460.5b58272d",
     "ws": "^6.1.2"
