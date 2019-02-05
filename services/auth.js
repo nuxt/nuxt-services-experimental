@@ -16,20 +16,14 @@ export default class AuthService extends NuxtService {
   }
 
   async getUser (req, res) {
-    const cookies = Cookies(req, res)
-
-    // Get jwt cookie
-    const jwt = cookies.get('jwt')
-    if (!jwt) return
-
     // Check if JWT is good
     try {
-      this.$axios.setToken(jwt, 'Bearer')
-
+      // TODO
       const user = await this.$services.me.show()
       // Set expiration in 3 months
       const expires = new Date()
       expires.setMonth(expires.getMonth() + 3)
+      // TODO: Find a way to set cookie from WS
       // Update jwt cookie
       cookies.set('jwt', user.token, {
         expires,
@@ -40,7 +34,8 @@ export default class AuthService extends NuxtService {
       return user
     } catch (err) {
       if (err.response && err.response.status === 401) {
-        cookies.set('jwt') // Remove jwt cookie
+        // cookies.set('jwt') // Remove jwt cookie
+        // Find a way to remove cookie from WS?
         this.$axios.setToken(false)
       }
     }
