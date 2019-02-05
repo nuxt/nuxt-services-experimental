@@ -2,6 +2,7 @@ import { resolve, join } from 'path'
 import { promisify } from 'util'
 import devalue from '@nuxtjs/devalue'
 import WebSocket from 'ws'
+import { getServiceMethods, loadServices } from './src/utils'
 
 const glob = promisify(require('glob'))
 
@@ -12,33 +13,18 @@ export default async function() {
   const servicesPath = resolve(this.options.srcDir, 'services')
   const files = await glob(join(servicesPath, '/**/*.js'))
   this.options.watch = this.options.watch.concat(files)
-  const services = {}
-  const servicesMap = {}
+  const Services = {}
+  const ServicesMethods = {}
 
   files.map(path => {
     const serviceKey = path
       .replace(servicesPath, '')
       .replace(/^\//, '')
       .replace(/\.js$/, '')
-    const keys = serviceKey.split('/')
-    const service = this.nuxt.resolver.requireModule(path) || {}
-    // TODO: Use class instead, and have this.context
-    Object.keys(service).forEach((method) => {
-      if (typeof service[method] === 'function')
-        service[method] = service[method].bind(this.nuxt)
-    })
+    const Service = this.nuxt.resolver.requireModule(path) || {}
 
-    servicesMap[serviceKey] = Object.keys(service)
-
-    let s = services
-    keys.forEach((key, i) => {
-      if (i + 1 < keys.length) {
-        s[key] = s[key] || {}
-        s = s[key]
-        return
-      }
-      s[key] = service
-    })
+    Services[serviceKey] = Service
+    ServicesMethods[serviceKey] = getServiceMethods(Service)
   })
   /*
   ** Add plugin
@@ -46,20 +32,24 @@ export default async function() {
   const url = `ws://${this.options.server.host}:${this.options.server.port}`
   this.addPlugin({
     filename: 'services.ws.client.js',
-    src: join(__dirname, 'plugin.client.js'),
+    src: join(__dirname, 'plugins/services.client.js'),
     ssr: false,
     options: {
       url,
-      servicesMap
+      ServicesMethods
     }
   })
   this.addPlugin({
     filename: 'services.ws.server.js',
-    src: join(__dirname, 'plugin.server.js')
+    src: join(__dirname, 'plugins/services.server.js')
   })
-  this.addServerMiddleware((req, res, next) => {
-    req.services = services
-    next()
+  // TODO: get the context from `server middleware`
+  // where @nuxtjs/axios could also instanciate himself
+  this.nuxt.hook('vue-renderer:ssr:context', async (ssrContext) => {
+    const context = ssrContext
+
+    await this.nuxt.callHook('services:context', context)
+    ssrContext.services = loadServices(Services, context)
   })
   /*
    ** Create WS server
@@ -67,8 +57,11 @@ export default async function() {
   this.nuxt.hook('listen', server => {
     const wss = new WebSocket.Server({ server })
 
-    wss.on('connection', ws => {
-      ws.services = services
+    wss.on('connection', async (ws, req) => {
+      const context = { req, ws }
+      console.log('new connection')
+      await this.nuxt.callHook('services:context', context)
+      const services = loadServices(Services, context)
 
       ws.on('error', err => Consola.error(err))
 
@@ -88,10 +81,13 @@ export default async function() {
         switch (obj.action) {
           case 'call':
             try {
-              let serviceModule = ws.services
-              obj.module.split('/').forEach((m) => serviceModule = serviceModule[m])
-              data = await serviceModule[obj.method].call(this.nuxt, ...obj.args)
+              let serviceModule = services
+              obj.module.split('/').forEach((m) => {
+                serviceModule = serviceModule[m]
+              })
+              data = await serviceModule[obj.method](...obj.args)
             } catch (e) {
+              if (this.options.dev) consola.error(e)
               error = JSON.parse(JSON.stringify(e, Object.getOwnPropertyNames(e)))
               if (!this.options.dev) delete error.stack
             }
@@ -111,4 +107,10 @@ export default async function() {
     })
     consola.info('Websockets server ready for services')
   })
+}
+
+export class NuxtService {
+  constructor ({ services }) {
+    this.$services = services
+  }
 }

@@ -98,18 +98,18 @@ class ClientRPC {
 export default async (ctx, inject) => {
   const services = new ClientRPC()
 
-  <% Object.keys(options.servicesMap).forEach((moduleKey) => {
-    const methods = options.servicesMap[moduleKey]
+  <% Object.keys(options.ServicesMethods).forEach((moduleNamespace) => {
+    const methods = options.ServicesMethods[moduleNamespace]
 
     const modules = []
-    moduleKey.split('/').forEach((m) => {
+    moduleNamespace.split('/').forEach((m) => {
       modules.push(m)
       const module = modules.map((m) => `['${m}']`).join('') %>
   services<%= module %> = services<%= module %> || {}<%
     })
     methods.forEach((method) => {
       const module = modules.concat(method).map((m) => `['${m}']`).join('') %>
-  services<%= module %> = services.callMethod.bind(services, '<%= moduleKey %>', '<%= method %>')<%
+  services<%= module %> = services.callMethod.bind(services, '<%= moduleNamespace %>', '<%= method %>')<%
     })
   }) %>
   inject('services', services)

@@ -17,6 +17,12 @@ export default async function (options) {
 	const db = client.db(mongodb.dbName)
   consola.info(`Connected to ${mongodb.dbName} database`)
 
-  this.nuxt.$db = db;
+  this.nuxt.hook('services:context', (context) => {
+    context.$mongodb = db
+  })
+  this.nuxt.hook('build:done', () => {
+    consola.info(`Closing ${mongodb.dbName} database`)
+    client.close()
+  })
 }
 
