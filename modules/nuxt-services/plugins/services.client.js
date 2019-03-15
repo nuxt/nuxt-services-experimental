@@ -53,7 +53,7 @@ class ClientRPC {
     try {
       obj = (0, eval)(`(${msg.data})`)
     } catch(e) {
-      console.error('Error', e, data.data)
+      console.error('Error', e, msg.data)
       return
     }
     switch (obj.action) {
